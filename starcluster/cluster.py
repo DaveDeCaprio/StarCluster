@@ -766,6 +766,8 @@ class Cluster(object):
             for alias in aliases:
                 kwargs['user_data'] = alias
                 resvs.extend(self.ec2.request_instances(image_id, **kwargs))
+            # Added this in because the spot request isn't immediately appearing.
+            time.sleep(30)
         else:
             resvs.append(self.ec2.request_instances(image_id, **kwargs))
         for resv in resvs:
