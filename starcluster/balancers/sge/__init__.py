@@ -651,7 +651,7 @@ class SGELoadBalancer(LoadBalancer):
             avg_duration = self.stat.avg_job_duration()
             ettc = avg_duration * qlen / num_exec_hosts
         if qlen > ts:
-            if not self.has_cluster_stabilized():
+            if num_exec_hosts > 1 and not self.has_cluster_stabilized():
                 return
             #there are more jobs queued than will be consumed with one
             #cycle of job processing from all nodes
