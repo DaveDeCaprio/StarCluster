@@ -206,16 +206,7 @@ class SGEStats(object):
         inconsistent, this will return -1 for example, if you have m1.large and
         m1.small in the same cluster
         """
-        total = self.count_total_slots()
-        if total == 0:
-            return total
-        if self.hosts[0][u'num_proc'] == '-':
-            self.hosts[0][u'num_proc'] = 0
-        single = int(self.hosts[0][u'num_proc'])
-        if (total != (single * len(self.hosts))):
-            log.error("ERROR: Number of slots not consistent across cluster")
-            return -1
-        return single
+        return 4
 
     def oldest_queued_job_age(self):
         """
