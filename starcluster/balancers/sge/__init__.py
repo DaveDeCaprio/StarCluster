@@ -646,7 +646,7 @@ class SGELoadBalancer(LoadBalancer):
         num_exec_hosts = len(self.stat.hosts)
         #calculate estimated time to completion
         ettc = 0
-        if num_exec_hosts > 0:
+        if num_exec_hosts > 1:
             #calculate job duration
             avg_duration = self.stat.avg_job_duration()
             ettc = avg_duration * qlen / num_exec_hosts
