@@ -633,16 +633,16 @@ class SGELoadBalancer(LoadBalancer):
         need_to_add = 0
         qlen = len(self.stat.get_queued_jobs())
         sph = self.stat.slots_per_host()
-        ts = self.stat.count_total_slots()
-        num_exec_hosts = len(self.stat.hosts)
+        ts = self.stat.count_total_slots() - 1
+        num_exec_hosts = len(self.stat.hosts)- 1
         #calculate estimated time to completion
         ettc = 0
-        if num_exec_hosts > 1:
+        if num_exec_hosts > 0:
             #calculate job duration
             avg_duration = self.stat.avg_job_duration()
             ettc = avg_duration * qlen / num_exec_hosts
         if qlen > ts:
-            if num_exec_hosts > 1 and not self.has_cluster_stabilized():
+            if not self.has_cluster_stabilized():
                 return
             #there are more jobs queued than will be consumed with one
             #cycle of job processing from all nodes
